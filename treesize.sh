@@ -33,6 +33,7 @@ else
             echo "Without OPTION the default directory is /"
             echo "OPTION"
             echo "-i    Include directory"
+            echo "EXAMPLE: sudo ./treesize.sh -i /data /var/log /tmp"
             exit 1
         fi
     done
