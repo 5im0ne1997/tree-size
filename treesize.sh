@@ -8,18 +8,9 @@ report_file="$HOME/REPORT.txt"
 rm -f ${report_file} &>/dev/null
 
 
-if [ ${#} -eq 0 ] # If no options, search all directory without system directory
+if [ ${#} -eq 0 ] # If no options, search all directory
 then
-    dir=( $(ls / | grep -ve bin\
-                    -ve boot\
-                    -ve dev\
-                    -ve etc\
-                    -ve lib\
-                    -ve mnt\
-                    -ve proc\
-                    -ve run\
-                    -ve sys\
-                    -ve usr | sed "s/^/\//") )
+    dir=( '/' )
 else
     continue=0
     for i in "${@}" # capture all options and arguments
