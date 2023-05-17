@@ -1,20 +1,20 @@
 # Treesize for Linux
 
-Questo tool permette di generare un report con l'elenco di tutte le directory in ordine di dimensione.
+This tool allows you to generate a report listing all directories in order of size.
 
-# Utilizzo
+# Usage
 
-E' necessaio (ma non obbligatorio) eseguire lo script come amministratore.
+It is necessary (but not mandatory) to run the script as an administrator.
 
 ./treesize.sh [OPTION] [DIRECTORY]
 
-Senza opzioni la directory di default è / senza le directory di sistema
+With no options the default directory is / without system directories.
 
-| **Opzione** | **Descrizione** |
+| **Options** | **Description** |
 | ----------- | --------------- |
 | -i | Include directory|
 
-# Esempio
+# Example
 
 ./treesize.sh -i /data /var/log /tmp
 
