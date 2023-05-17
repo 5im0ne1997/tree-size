@@ -1,9 +1,11 @@
 #!/bin/bash
 
 TEMP_dir_all="/tmp/.dir_all.temp"
-cat /dev/null > ${TEMP_dir_all}
-error_file="./ERROR_REPORT.txt"
-cat /dev/null > ${error_file}
+rm -f ${TEMP_dir_all} &>/dev/null
+error_file="$HOME/ERROR_REPORT.txt"
+rm -f ${error_file} &>/dev/null
+report_file="$HOME/REPORT.txt"
+rm -f ${report_file} &>/dev/null
 
 
 if [ ${#} -eq 0 ]
@@ -58,8 +60,8 @@ do
     echo $((${i} / ${num_progress_barr}))
 done 2>>${error_file} | whiptail --title "Calculating Result" --gauge "" 5 50 0
 
-sort -hr ${TEMP_dir_all} > ./REPORT.txt
-echo "The report file is generated in $(pwd)/REPORT.txt"
+sort -hr ${TEMP_dir_all} > ${report_file}
+echo "The report file is generated in ${report_file}"
 rm -f ${TEMP_dir_all}
 
 exit 0
