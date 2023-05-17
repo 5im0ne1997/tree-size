@@ -34,10 +34,10 @@ fi
 
 for i in ${dir[@]}
 do 
-    find ${i} -type d >> ${TEMP_dir_all} 2>>${error_file} # Search all directories in dir array
+    dir_all=( $(find ${i} -type d -exec ls -d {} \; 2>>${error_file}) ) # Search all directories in dir array
 done
 
-count=$(wc -l ${TEMP_dir_all} | cut -d" " -f 1) # Count all lines for the progress bar
+count=$(echo ${#dir_all[@]}) # Count all lines for the progress bar
 if [ ${count} -lt 100 ]
 then
     num_progress_barr=1 # If count is less than 100, I set this like 1 because we can't divide by 0
@@ -45,13 +45,14 @@ else
     num_progress_barr=$((${count} / 100)) # calculate 1% value
 fi
 
-for ((i=1; i<=${count}; i+=1))
+for ((i=0; i<=${count}; i+=1))
 do
-    sed -i "${i}s@^@$(du -h -d 0 "$(sed -n "${i}{p;q}" ${TEMP_dir_all})" | cut -f 1);@" ${TEMP_dir_all} #for all line in ${TEMP_dir_all}, add at the beginning of all line the dimension
+    echo ${dir_all[$i]} |  sed "s@^@$(du -h -d 0 ${dir_all[$i]} | cut -f 1);@" >> ${TEMP_dir_all} #for all line in ${TEMP_dir_all}, add at the beginning of all line the dimension
     echo $((${i} / ${num_progress_barr})) # calculate actual percent value
 done 2>>${error_file} | whiptail --title "Calculating Result" --gauge "" 5 50 0 # print the progress bar
 
 sort -hr ${TEMP_dir_all} > ${report_file} # sort directories by dimension
+sed -i "1iDimension;Path" ${report_file}
 echo "The report file is generated in ${report_file}"
 rm -f ${TEMP_dir_all}
 
