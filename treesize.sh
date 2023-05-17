@@ -18,15 +18,23 @@ else
         if [ "${i}" == "-i" ]
         then
             continue=1 # continue=1 if option is -i and skip to the next argument
+        elif [ "${i}" == "-d" ]
+        then
+            continue=3 # continue=3 if option is -d and skip to the next argument
         elif [ ${continue} -eq 1 ]
         then
             dir+=( "${i}" ) # Add new argument in array
+        elif [ ${continue} -eq 3 ] && [ "${i}" -ge 0 ]
+        then
+            max_depth="-maxdepth ${i}" # modify find depth
+            continue=0
         else # if the first argument is'n -i print usage
             echo "USAGE: sudo ${0} [OPTION] [DIRECTORY]"
             echo "Without OPTION the default directory is /"
             echo "OPTION"
             echo "-i    Include directory"
-            echo "EXAMPLE: sudo ./treesize.sh -i /data /var/log /tmp"
+            echo "-d    Depth"
+            echo "EXAMPLE: sudo ./treesize.sh -i /data /var/log /tmp -d 2"
             exit 1
         fi
     done
@@ -34,7 +42,7 @@ fi
 
 for i in ${dir[@]}
 do 
-    dir_all=( $(find ${i} -type d -exec ls -d {} \; 2>>${error_file}) ) # Search all directories in dir array
+    dir_all=( $(find ${i} ${max_depth} -type d -exec ls -d {} \; 2>>${error_file}) ) # Search all directories in dir array
 done
 
 count=$(echo ${#dir_all[@]}) # Count all lines for the progress bar
@@ -45,7 +53,7 @@ else
     num_progress_barr=$((${count} / 100)) # calculate 1% value
 fi
 
-for ((i=0; i<=${count}; i+=1))
+for ((i=0; i<=((${count} - 1)); i+=1))
 do
     echo ${dir_all[$i]} |  sed "s@^@$(du -h -d 0 ${dir_all[$i]} | cut -f 1);@" >> ${TEMP_dir_all} #for all line in ${TEMP_dir_all}, add at the beginning of all line the dimension
     echo $((${i} / ${num_progress_barr})) # calculate actual percent value

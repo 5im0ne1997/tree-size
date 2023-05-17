@@ -13,8 +13,9 @@ With no options the default directory is /.
 | **Options** | **Description** |
 | ----------- | --------------- |
 | -i | Include directory|
+| -d | Depth |
 
 # Example
 
-./treesize.sh -i /data /var/log /tmp
+./treesize.sh -i /data /var/log /tmp -d 2
 
