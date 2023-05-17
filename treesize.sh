@@ -24,12 +24,12 @@ else
     do
         if [ "${i}" == "-i" ] || [ ${continue} -eq 1 ]
         then
-            if [ ${continue} -eq 1 ]
+            if [ "${i}" == "-i" ]
+            then
+                continue=1
+            elif [ ${continue} -eq 1 ]
             then
                 dir+=( "${i}" )
-                continue=0
-            else
-                continue=1
             fi
         else
             echo "USAGE: sudo ${0} [OPTION] [DIRECTORY]"
