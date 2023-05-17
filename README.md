@@ -16,5 +16,5 @@ Senza opzioni la directory di default è / senza le directory di sistema
 
 # Esempio
 
-./treesize.sh -i /data -i /var/log -i /tmp
+./treesize.sh -i /data /var/log /tmp
 
