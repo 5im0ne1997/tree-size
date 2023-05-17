@@ -7,6 +7,10 @@ rm -f ${error_file} &>/dev/null
 report_file="$HOME/REPORT.txt"
 rm -f ${report_file} &>/dev/null
 
+if [ $(whiptail -v &>/dev/null ; echo $?) -eq 0 ]
+then
+    progress_barr='| whiptail --title "Calculating Result" --gauge "" 5 50 0'
+fi
 
 if [ ${#} -eq 0 ]
 then
@@ -58,7 +62,7 @@ for ((i=1; i<=${count}; i+=1))
 do
     sed -i "${i}s@^@$(du -h -d 0 "$(sed -n "${i}{p;q}" ${TEMP_dir_all})" | cut -f 1);@" ${TEMP_dir_all}
     echo $((${i} / ${num_progress_barr}))
-done 2>>${error_file} | whiptail --title "Calculating Result" --gauge "" 5 50 0
+done 2>>${error_file} ${progress_barr}
 
 sort -hr ${TEMP_dir_all} > ${report_file}
 echo "The report file is generated in ${report_file}"
