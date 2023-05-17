@@ -22,15 +22,12 @@ else
     continue=0
     for i in "${@}"
     do
-        if [ "${i}" == "-i" ] || [ ${continue} -eq 1 ]
+        if [ "${i}" == "-i" ]
         then
-            if [ "${i}" == "-i" ]
-            then
-                continue=1
-            elif [ ${continue} -eq 1 ]
-            then
-                dir+=( "${i}" )
-            fi
+            continue=1
+        elif [ ${continue} -eq 1 ]
+        then
+            dir+=( "${i}" )
         else
             echo "USAGE: sudo ${0} [OPTION] [DIRECTORY]"
             echo "Without OPTION the default directory is /"
