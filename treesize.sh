@@ -9,7 +9,7 @@ rm -f ${report_file} &>/dev/null
 
 if [ $(whiptail -v &>/dev/null ; echo $?) -eq 0 ]
 then
-    progress_barr='| whiptail --title "Calculating Result" --gauge "" 5 50 0'
+    progress_barr="| whiptail --title \"Calculating Result\" --gauge \"\" 5 50 0"
 fi
 
 if [ ${#} -eq 0 ]
