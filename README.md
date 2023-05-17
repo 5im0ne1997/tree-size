@@ -8,7 +8,7 @@ It is necessary (but not mandatory) to run the script as an administrator.
 
 ./treesize.sh [OPTION] [DIRECTORY]
 
-With no options the default directory is / without system directories.
+With no options the default directory is /.
 
 | **Options** | **Description** |
 | ----------- | --------------- |
