@@ -7,7 +7,6 @@ rm -f ${error_file} &>/dev/null
 report_file="$HOME/REPORT.txt"
 rm -f ${report_file} &>/dev/null
 
-
 if [ ${#} -eq 0 ] # If no options, search all directory
 then
     dir=( '/' )
