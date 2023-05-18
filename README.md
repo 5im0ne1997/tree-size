@@ -19,3 +19,4 @@ With no options the default directory is /.
 
 ./treesize.sh -i /data /var/log /tmp -d 2
 
+
